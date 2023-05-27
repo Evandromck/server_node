@@ -1,9 +1,12 @@
 import fastify from 'fastify'
+import { PrismaClient } from '@prisma/client'
 
 const app = fastify()
+const prisma = new PrismaClient() //conexão com PrismaClient 
 
-app.get('/hello', () => {
-  return 'Hello'
+app.get('/users', async () => { //adicionar o async para utilizar o await posteriomente 
+  const users = await prisma.user.findMany()// uma const users para recerber a variavel prisma ja adicionado o PrismaClient e definir a busca todos os user do banco "user findMany"
+  return users
 })
 
 app
